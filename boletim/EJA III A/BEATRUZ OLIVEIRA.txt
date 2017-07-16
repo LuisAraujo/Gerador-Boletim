@@ -1,0 +1,13 @@
+Português 1,0  
+Redação 1,0  
+Inglês 1,0  
+Espanhol 1,0  
+Matemática 1,0  
+Geometria 1,0  
+História 1,0  
+Ciência 1,0  
+Geografia 1,0  
+Artes 1,0  
+Informática 4,0  
+Religião 7,0  
+Ed. Física 7,0  

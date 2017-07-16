@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+    <title></title>
+    <script src="jquery.js"></script>
+</head>
+<body>
+<div id="log"><div></div>
+
+<script>
+
+$(document).ready(function(){
+
+var jqxhr = $.post( "getDirs.php", {},function() {
+})
+    .done(function(data){
+        projectList = jQuery.parseJSON(data);
+
+        if(projectList.length > 0){
+            projectList.forEach(function(element, index){
+				$("#log").append(element);
+				$("#log").append("<br>");
+			});
+			
+			start(projectList);
+		
+        }else
+            alert( "error get list file" );
+
+    })
+    .fail(function() {
+        alert( "error get list file" );
+    })
+});
+
+
+
+
+function start(data){
+    console.log(data);
+	
+	disciplines = ["Português","Redação","Inglês","Espanhol",
+	"Matemática","Geometria","História","Ciência","Geografia",
+	"Artes","Informática","Religião","Ed. Física"];
+
+    for(var i =0; i< data.length; i++){
+
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", data[i], false);
+			var namefile = data[i];
+			
+            rawFile.onreadystatechange = (function ()
+            {
+			    return function()
+				{
+						if(rawFile.readyState === 4)
+						{
+							if(rawFile.status === 200 || rawFile.status == 0)
+							{       
+									
+							
+									var allText = rawFile.responseText;
+									//get line
+									arrText = allText.split("\n");
+
+									newArrText = [];
+									strValues = "";
+									newArrText[0] = arrText[0];
+									newArrText[1] = arrText[1];
+									//start form 7º line 'couse head elements in sheet
+									for(var i= 7; i < arrText.length; i++){
+											arrText[i] = arrText[i].replace(/(?:\r\n|\r|\n)/g, '');
+											
+											//if is not empyty
+											if(arrText[i] != ""){
+												  //separete by ; in csv format
+												  arrTextSplit = arrText[i].split(";");
+												  //is empyt?
+												  if(arrTextSplit[1].length == 0)
+													 continue;
+												  //students's name
+													console.log("Aluno "+arrTextSplit[1]);
+													array_disciplines = [];
+													for(var j = 0; j<disciplines.length; j++){
+														json_discipline = {
+															"discipline": disciplines[j],
+															"note_1":  arrTextSplit[j+2],
+															"note_2":  arrTextSplit[j+13+2],
+															"note_3":  arrTextSplit[j+26+2]
+														};
+														
+														array_disciplines.push(json_discipline);
+													}
+													
+													json_students_data = {
+													  "student": arrTextSplit[1],
+													  "notes" : array_disciplines
+													}
+													
+													console.log(json_students_data, namefile.split("//")[1].split(".")[0]);
+													//remove dir/ and .csv
+													nameFileSplit = namefile.split("//")[1].split(".")[0];
+													saveData(json_students_data, nameFileSplit);
+											}
+									}
+
+							}
+						}
+				
+			    }
+            })(namefile);
+			
+			
+            rawFile.send(null);
+    }
+
+	
+function saveData(dataForSave, nameFile){
+
+		jqxhr = $.post( "salveDir.php", {data:dataForSave, nameFile: nameFile},function() {
+		})
+		.done(function(data){
+			$("#log").append(data);
+			$("#log").append("<br>");
+		})
+		.fail(function() {
+			alert( "error get list file" );
+		})
+								
+}
+
+
+}
+
+</script>
+</body>
+</html>
