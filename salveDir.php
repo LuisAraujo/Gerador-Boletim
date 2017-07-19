@@ -11,7 +11,7 @@ $strFile  = "";
 foreach( $dataFromSave["notes"] as $key => $value){
   $strFile .= $value["discipline"]." ".$value["note_1"]." ".$value["note_2"]." ".$value["note_3"];
   $strFile .= "\r\n";
-}
+
 
 if(!is_dir("boletim"))
 	mkdir("boletim");
