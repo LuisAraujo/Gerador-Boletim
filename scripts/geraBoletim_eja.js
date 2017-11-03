@@ -37,9 +37,9 @@ $(document).ready(function(){
 
 function gerateBoletim(data){
 	
-	disciplines = ["Português","Redação","Inglês","Espanhol",
-	"Matemática","Geometria","História","Ciência","Geografia",
-	"Artes","Informática","Religião","Ed. Física"];
+	disciplines = ["Português","Inglês",
+	"Matemática","História","Ciência","Geografia",
+	"Artes","Informática","Religião"];
 
     //for(var i =0; i< data.length; i++){
 
@@ -99,16 +99,17 @@ function gerateBoletim(data){
 									arr_discipline += disciplines[j]+"-";
 									/*this notes of each disciplines is separet with 13 (amount disciplins)*/
 									//note of I unit 
-									arr_discipline += arrTextSplit[j+2]+"-"; 
-									arr_discipline += arrTextSplit[j+13+2]+"-";
+									arr_discipline += arrTextSplit[j+2]+"-";
+									arr_discipline += arrTextSplit[j+9+2]+"-";
 									
-									//note of II unit
-									arr_discipline += arrTextSplit[j+(13*2)+2]+"-";
-									arr_discipline += arrTextSplit[j+(13*3)+2]+"-";
-									
+									//note of II unit 
+									arr_discipline += arrTextSplit[j+(9*2)+2]+"-";
+									arr_discipline += arrTextSplit[j+(9*3)+2]; //+"-";
+								
 									//note of III unity
-									arr_discipline += arrTextSplit[j+(13*4)+2]+"-";
-									arr_discipline += arrTextSplit[j+(13*5)+2];
+									//arr_discipline += arrTextSplit[j+(9*4)+2]+"-";;
+									//arr_discipline += arrTextSplit[j+(9*5)+2]+"-";;
+								
 								
 								}
 								

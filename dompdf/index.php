@@ -1,6 +1,5 @@
 <?php
-header ('Content-type: text/html; charset=UTF-8');
-
+header("Content-Type: text/html; charset=UTF-8");
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -20,7 +19,7 @@ $array_students = array();
 $data = $_POST["all_data"];
 
 //formato
-//ANA|portugues-1,2-1,0-4,0;matemática-0,0-1,0-,2,0_CARLOS|portugues; ...
+//ANA:portugues-1,2-1,0-4,0;matemática-0,0-1,0-,2,0_CARLOS|portugues; ...
 $all_students =  split("_", $data);
 	
 for($i=0; $i< count($all_students); $i++){
@@ -135,20 +134,26 @@ for($i= 0; $i < count($array_students[$l]->notes); $i++){
 	
     $html.="<tr >";
 	$html.="<td style='border: 1px solid black; border-collapse: collapse'>". ($array_students[$l]->notes[$i][0]) ."</td>";
-	 
+	 //notas I
 	 $html.="<td style='border: 1px solid black; border-collapse: collapse'> ". ($array_students[$l]->notes[$i][1]) ." </td>";
-	 
-	$html.="<td style='border: 1px solid black; border-collapse: collapse'> - </td>";
-	
-	 $html.="<td style='border: 1px solid black; border-collapse: collapse'> ". ($array_students[$l]->notes[$i][2]) ." </td>";
-	 
-	$html.="<td style='border: 1px solid black; border-collapse: collapse'> - </td>";
-
-	 $html.="<td style='border: 1px solid black; border-collapse: collapse'> ". ($array_students[$l]->notes[$i][3]) ." </td>";
-	 
-	$html.="<td style='border: 1px solid black; border-collapse: collapse'> - </td>";
-	
+	 //faltas I
+	$html.="<td style='border: 1px solid black; border-collapse: collapse'> ". ($array_students[$l]->notes[$i][2]) ." </td>";
+	//notas II
+	//$html.="<td style='border: 1px solid black; border-collapse: collapse'> - </td>";
+	$html.="<td style='border: 1px solid black; border-collapse: collapse'> ". ($array_students[$l]->notes[$i][3]) ."</td>";
+	 //faltas II
+	//$html.="<td style='border: 1px solid black; border-collapse: collapse'> - </td>";
+	$html.="<td style='border: 1px solid black; border-collapse: collapse'> ". ($array_students[$l]->notes[$i][4]) ."</td>";
+	//notas III
+	 //$html.="<td style='border: 1px solid black; border-collapse: collapse'> - </td>";
+	 $html.="<td style='border: 1px solid black; border-collapse: collapse'> ". ($array_students[$l]->notes[$i][5]) ."</td>";
+	 ///faltas III
+	//$html.="<td style='border: 1px solid black; border-collapse: collapse'> - </td>";
+	 $html.="<td style='border: 1px solid black; border-collapse: collapse'> ". ($array_students[$l]->notes[$i][6]) ."</td>";
+	///media final
 	$html.="<td style='border: 1px solid black; border-collapse: collapse'> - </td>";	
+	 //$html.="<td style='border: 1px solid black; border-collapse: collapse'> ". ($array_students[$l]->notes[$i][7]) ."</td>";
+	 
 $html.="</tr>";
 }
 	
@@ -173,6 +178,8 @@ $dompdf->set_base_path('localhost/Gerador-Boletim/style.css');
 
 // Criando a saida do PDF gerado para o Navegados
 $output = $dompdf->output();
+
+$name = "Boletim_".$ano."".$turma;
 
 //Caminho + nome do arquivo
 $file_to_save =  $path."/".$folder."".$name.'.pdf';
